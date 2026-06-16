@@ -102,3 +102,22 @@ a { color: inherit; }
 .chip:hover { border-color: var(--color-accent); color: var(--color-accent); }
 
 .chip-row { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+
+/* ---------- accessibility ---------- */
+
+.skip-link {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: 9999;
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  border-radius: var(--radius-md);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-decoration: none;
+  transform: translateY(-200%);
+  transition: transform 0.2s ease;
+}
+.skip-link:focus { transform: translateY(0); }

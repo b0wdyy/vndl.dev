@@ -32,8 +32,23 @@ const jetbrains = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Bodhi Vandael · Full-Stack Developer',
+  metadataBase: new URL('https://vndl.dev'),
+  title: {
+    default: 'Bodhi Vandael · Full-Stack Developer',
+    template: '%s · Bodhi Vandael',
+  },
   description: 'Full-stack developer with 5+ years shipping web, mobile and desktop products. Based in Lommel, Belgium.',
+  openGraph: {
+    type: 'website',
+    locale: 'en_GB',
+    url: 'https://vndl.dev',
+    siteName: 'Bodhi Vandael',
+    title: 'Bodhi Vandael · Full-Stack Developer',
+    description: 'Full-stack developer with 5+ years shipping web, mobile and desktop products. Based in Lommel, Belgium.',
+  },
+  twitter: {
+    card: 'summary_large_image',
+  },
 }
 
 // Inline pre-paint script to set data-theme before first paint (no FOUC)
@@ -54,6 +69,7 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: fxScript }} />
       </head>
       <body className={`${schibsted.variable} ${jetbrains.variable}`}>
+        <a href="#top" className="skip-link">Skip to content</a>
         <Loader />
         <Cursor />
         <Veil />
