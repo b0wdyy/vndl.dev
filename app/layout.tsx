@@ -6,7 +6,6 @@ import { Loader } from '@/components/fx/Loader'
 import { Reveal } from '@/components/fx/Reveal'
 import { SmoothScroll } from '@/components/fx/SmoothScroll'
 import { Veil } from '@/components/fx/Veil'
-import { WorkPreviewClient } from '@/components/fx/WorkPreviewClient'
 import { Footer } from '@/components/layout/Footer'
 import { Header } from '@/components/layout/Header'
 
@@ -76,7 +75,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Veil />
         <SmoothScroll />
         <Reveal />
-        <WorkPreviewClient />
         <Header />
         {children}
         <Footer />
