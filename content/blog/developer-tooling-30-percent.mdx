@@ -1,0 +1,65 @@
+---
+title: "Developer tooling is a feature: the 30% story"
+date: "2025-01-14"
+tag: "Tooling"
+description: "How internal plugins and generators cut a third off routine dev tasks, and how to make the case for tooling time to a client."
+cover: ""
+---
+
+Last year I told a client that their team was spending roughly 30% of their development time on tasks a generator could automate. They were skeptical. Three months later, that 30% was mostly recovered, and the team had stopped complaining about the onboarding process for new developers.
+
+Here's what we actually did, and how I made the case.
+
+## What we were doing manually
+
+The project was an Angular application in an Nx monorepo. Every new feature required:
+
+1. Creating a new library (`nx g @nx/angular:lib feature-name`)
+2. Adding the standard folder structure inside (components, services, facade, barrel)
+3. Writing the NgModule (or standalone component config) with the same boilerplate as every other feature
+4. Registering the library in the root app with consistent naming conventions
+5. Adding the feature to the route configuration
+6. Creating a Storybook story with the standard structure
+
+Each of these is 5-10 minutes of mechanical work. For a new feature, that's 30-50 minutes before you write a single line of business logic. Multiplied across a team of four, adding features weekly, it adds up faster than it sounds.
+
+## What we built
+
+An Nx generator that automates steps 1-6. You run:
+
+```bash
+nx g @vndl/workspace:feature customer-portal
+```
+
+And you get:
+- A new library at `libs/customer-portal/`
+- Standard folder structure, barrel exports, consistent naming
+- Component and service stubs following the project's patterns
+- Route registered in the app's routing module
+- Storybook story with the project's standard decorator setup
+
+The generator is about 200 lines of TypeScript. It reads the existing routing configuration, finds the right insertion point, and appends the new route. It uses Nx's `Tree` API, so it's testable and integrates with `nx affected`.
+
+The second tool: a `make-service` generator that creates a service with the project's DI patterns, adds it to the right module, and generates a matching spec file with the project's testing setup pre-configured.
+
+## Making the case to the client
+
+The conversation went roughly like this: I audited two weeks of git commit history and identified which commits were feature work versus scaffolding/boilerplate. About a third of the commits were in the "mechanical setup" category — not bugs, not decisions, just repeating the pattern.
+
+I proposed: invest two weeks building generators, recover the time within six weeks, get consistent code structure as a side effect.
+
+The thing that convinced them wasn't the time math — it was the consistency argument. The codebase had grown to a point where different developers had slightly different interpretations of "where does this go?" The generator would enforce one interpretation. New developers would learn the patterns from the generator, not from informal code review feedback.
+
+## What actually happened
+
+The generators paid back the two weeks within about five weeks. But the more interesting outcome was the secondary effects.
+
+Code review got faster because generated code followed a known shape — reviewers could skip the structural questions and focus on business logic. Onboarding a new developer shortened from "pair with someone for a week" to "run this generator, see what it makes, read the output." The team stopped having the same architecture debate every month because the generator embodied the decision.
+
+## The general principle
+
+Developer tooling isn't overhead — it's code that teaches other code. When you encode a convention in a generator, you're not just automating a task. You're making the convention explicit, enforceable, and documentable.
+
+The test I use: if the same mechanical step appears three times in a week, it should be a generator. If a code review comment appears in three different PRs, it should be a lint rule. If an architectural question comes up in every sprint, it should be a decision document and a schema.
+
+The 30% wasn't wasted time. It was an investment opportunity that hadn't been noticed yet.

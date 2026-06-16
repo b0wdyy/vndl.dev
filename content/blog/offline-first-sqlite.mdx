@@ -1,0 +1,76 @@
+---
+title: "Offline-first with SQLite, without the sync horror stories"
+date: "2025-06-22"
+tag: "Architecture"
+description: "Designing for unreliable networks: local SQLite as the source of truth, deliberate sync boundaries, and conflicts you can reason about."
+cover: ""
+---
+
+The NURS-E mobile app for Wit-Gele Kruis needed to work in hospital basements, care home corridors, and anywhere a community nurse with unreliable 4G goes. "Work offline" sounds simple. It almost never is.
+
+Here's what we got right, what we got wrong, and the mental model that made the difference.
+
+## The wrong way to think about offline
+
+The naive approach is to treat offline as a failure mode: the network is the truth, and offline is a degraded fallback. When the device reconnects, you sync and move on.
+
+This breaks in ways that are hard to recover from. If the nurse records a medication administration while offline, and reconnects 40 minutes later, and another nurse updated that same patient record in the meantime — who's right? "Last write wins" is not a valid answer for healthcare.
+
+The right model: **local SQLite is the source of truth**. The server is a sync target, not an authority. Every write goes to local first, tagged with a timestamp and a device ID. Sync is the process of reconciling local state with a shared server, not pulling truth from a remote.
+
+## Defining sync boundaries
+
+The first thing we did was inventory *what actually needs to sync*, and when. Not everything does.
+
+Patient care records: must sync, eventually consistent is acceptable (nurse A and nurse B seeing each other's notes within a few minutes is fine).
+
+Medication administrations: must sync, but also need conflict detection — two administrations for the same medication in the same time window need to surface to a human, not silently merge.
+
+Lookup tables (medication catalog, care protocols): read-only, update via versioned download, not row-level sync.
+
+User session state: no sync needed at all.
+
+Defining these categories upfront saved us from building a generic sync system that would have been overengineered for most data and dangerously under-specified for the critical parts.
+
+## The SQLite setup
+
+On mobile we used Expo's SQLite module. Each record has:
+
+```sql
+CREATE TABLE care_events (
+  id TEXT PRIMARY KEY,          -- UUID generated client-side
+  patient_id TEXT NOT NULL,
+  type TEXT NOT NULL,
+  data TEXT NOT NULL,           -- JSON payload
+  created_at TEXT NOT NULL,     -- ISO 8601, UTC
+  device_id TEXT NOT NULL,
+  synced_at TEXT,               -- NULL until confirmed by server
+  server_revision INTEGER       -- NULL until server assigns one
+);
+```
+
+The UUID primary key means there's no collision risk on creation — we don't need the server to tell us the ID. `synced_at` being null is the queue for "needs to sync." `server_revision` lets us detect when a record has been updated remotely since we last pulled it.
+
+## Conflict handling
+
+We landed on a pragmatic rule: for most data types, last-write-wins by server timestamp is acceptable. For medication events, conflicts trigger a UI prompt.
+
+On sync, the backend compares `device_id` + `created_at` + `patient_id` + medication type to detect overlapping administrations. If it finds one, it marks both records as `conflict: true` and returns them to the app. The nurse sees a banner: "Two records were created for the same patient and medication within 30 minutes. Please review."
+
+This isn't automatic conflict resolution. It's deliberate conflict *surfacing*. For healthcare, that's the right tradeoff. We'd rather show a nurse two records and ask them to confirm than silently discard one.
+
+## What made sync reliable
+
+**Idempotent uploads.** Every sync request is an upsert, keyed on the UUID. If the request succeeds on the server but the client loses the response, retrying is safe.
+
+**Small batches, frequent syncs.** We sync every 30 seconds when connected, rather than batching everything until the user explicitly syncs. Each batch is at most 50 records. This keeps individual sync operations fast and reduces the blast radius of a bad payload.
+
+**Sync status is user-visible.** There's an always-visible indicator: green dot (synced within 2 minutes), yellow (synced within 10 minutes), red (no sync in over 10 minutes). Nurses noticed and cared about this. It became a diagnostic tool in the field.
+
+## The horror we avoided
+
+The horror story version of offline-first: a generic sync engine that tries to merge arbitrary JSON diffs, applies CRDTs everywhere, and requires understanding distributed systems papers to operate.
+
+We avoided it by being specific. Our conflict model is simple enough to explain to a nurse in 30 seconds. Our sync logic fits in two files. The SQLite schema is readable by anyone on the team.
+
+Offline-first doesn't require sophistication. It requires being deliberate about what you're actually syncing and why.

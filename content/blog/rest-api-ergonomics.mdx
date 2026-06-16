@@ -1,0 +1,87 @@
+---
+title: "What 35 REST endpoints taught me about API ergonomics"
+date: "2025-03-05"
+tag: "Backend"
+description: "Building the Smashly backend solo forced consistency: naming, pagination, error shapes and the small decisions that compound."
+cover: ""
+---
+
+Smashly is a padel match discovery app. I built the backend solo — a Java 21 Spring Boot API, 35 REST endpoints, one developer, no rubber duck. When you're the only one reviewing your own decisions, you either get sloppy or you get disciplined. I tried to get disciplined.
+
+Here are the conventions I landed on and why they matter.
+
+## Naming: nouns, plural, flat
+
+REST naming debates are endless, but I had to pick something and stick to it. The rule I used: resource names are plural nouns, nested only when the parent ID is load-bearing.
+
+```
+GET /matches              — all matches
+GET /matches/:id          — single match
+GET /matches/:id/players  — players for a match
+POST /matches/:id/join    — action on a match
+```
+
+The `/join` endpoint is technically an action, not a noun. I tried to model it as `POST /match-participants` and it felt wrong — it obscured intent and made the client code less readable. Sometimes verbs win.
+
+What I stopped doing: deep nesting. `GET /clubs/:clubId/courts/:courtId/slots` sounds precise but is a maintenance burden. If the client needs slots, they know the court ID. Use query params or a flat endpoint with a filter.
+
+## Pagination: cursor beats offset
+
+The first five endpoints I built used offset pagination. It's easy to implement and easy to understand. It's also wrong for a use case where new matches appear in real-time.
+
+With offset pagination, if 10 new matches are added while a user is on page 3, page 4 returns some results they've already seen. With a growing dataset, this gets worse over time.
+
+I switched to cursor-based pagination for all list endpoints:
+
+```json
+{
+  "data": [],
+  "pagination": {
+    "next_cursor": "eyJpZCI6MTIzfQ==",
+    "has_more": true
+  }
+}
+```
+
+The cursor is a base64-encoded JSON blob containing the last item's ID and sort key. The server decodes it and uses `WHERE (created_at, id) < (cursor.created_at, cursor.id)` for keyset pagination. Stable, consistent, fast.
+
+The downside: you can't jump to page 5. For Smashly that's fine — the client scrolls infinitely. For an admin interface with "go to page N" requirements, I'd add a separate count endpoint and let the client calculate.
+
+## Error shapes: consistent and parseable
+
+Nothing breaks client code faster than inconsistent error responses. I defined one error shape and enforced it:
+
+```json
+{
+  "error": {
+    "code": "MATCH_NOT_FOUND",
+    "message": "No match found with ID abc123",
+    "field": null
+  }
+}
+```
+
+`code` is a machine-readable string. `message` is human-readable (suitable for display). `field` is set for validation errors targeting a specific input.
+
+Validation errors get a slightly different shape — an array:
+
+```json
+{
+  "errors": [
+    { "code": "REQUIRED", "message": "Start time is required", "field": "start_time" },
+    { "code": "INVALID_DATE", "message": "Start time must be in the future", "field": "start_time" }
+  ]
+}
+```
+
+One shape per HTTP status category: 400 for validation, 404 for not found, 409 for conflicts, 422 for business rule violations, 500 for surprises. The client maps status → shape, not endpoint → shape.
+
+## The consistency tax
+
+The most important lesson: **consistency has a cost you pay upfront, and a payoff you collect over time.**
+
+Defining the error shape before writing any endpoints felt like overengineering at the time. By endpoint 20, it was invisible infrastructure. The mobile client parsed errors with one function. When I added a new endpoint, the shape was already decided.
+
+The same applies to naming, pagination, and auth header conventions. Decisions made early compound. Decisions made late cause refactors.
+
+Build an API like you're maintaining it in six months. You probably are.
