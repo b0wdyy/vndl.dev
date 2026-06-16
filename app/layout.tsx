@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { JetBrains_Mono, Schibsted_Grotesk } from 'next/font/google'
+import { Bricolage_Grotesque, IBM_Plex_Mono } from 'next/font/google'
 
 import { Cursor } from '@/components/fx/Cursor'
 import { Loader } from '@/components/fx/Loader'
@@ -18,15 +18,14 @@ import '../styles/menu.css'
 import '../styles/preview.css'
 import '../styles/tokens.css'
 
-const schibsted = Schibsted_Grotesk({
+const bricolage = Bricolage_Grotesque({
   subsets: ['latin'],
   weight: 'variable',
-  style: ['normal', 'italic'],
   variable: '--font-schibsted',
   display: 'swap',
 })
 
-const jetbrains = JetBrains_Mono({
+const ibmPlexMono = IBM_Plex_Mono({
   subsets: ['latin'],
   weight: ['400', '500', '700'],
   variable: '--font-jetbrains',
@@ -68,7 +67,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script dangerouslySetInnerHTML={{ __html: fxScript }} />
       </head>
-      <body className={`${schibsted.variable} ${jetbrains.variable}`}>
+      <body className={`${bricolage.variable} ${ibmPlexMono.variable}`}>
         <a href="#top" className="skip-link">
           Skip to content
         </a>
