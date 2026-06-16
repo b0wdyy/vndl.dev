@@ -5,6 +5,7 @@ export type Project = {
   client: string
   period: string
   description: string
+  href?: string
 }
 
 export const projects: Project[] = [

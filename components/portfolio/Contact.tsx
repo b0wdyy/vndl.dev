@@ -11,8 +11,10 @@ export function Contact() {
         </p>
         <div className="contact-rows reveal">
           <div>
-            <span className="mono-label">Phone</span>
-            <a href="tel:+32488089442">+32 488 08 94 42</a>
+            <span className="mono-label">GitHub</span>
+            <a href="https://github.com/b0wdyy" target="_blank" rel="noopener noreferrer">
+              github.com/b0wdyy
+            </a>
           </div>
           <div>
             <span className="mono-label">LinkedIn</span>
@@ -23,6 +25,10 @@ export function Contact() {
             >
               linkedin.com/in/bodhi-vandael
             </a>
+          </div>
+          <div>
+            <span className="mono-label">Phone</span>
+            <a href="tel:+32488089442">+32 488 08 94 42</a>
           </div>
         </div>
       </div>

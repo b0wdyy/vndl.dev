@@ -1,6 +1,6 @@
 /* Blog post detail styles */
 .blog-hero {
-  padding: var(--space-10) 0 var(--space-7);
+  padding: var(--space-8) 0 var(--space-5);
 }
 .blog-hero h1 {
   font-size: clamp(2.5rem, 7vw, var(--text-4xl));
