@@ -1,0 +1,118 @@
+/* ============================================================
+   BODHI VANDAEL — DESIGN TOKENS
+   Single source of truth. Mirrors design-system/tokens.json
+   (Figma Tokens / Tokens Studio compatible).
+   Theme switching: set data-theme="light" | "dark" on <html>.
+   ============================================================ */
+
+:root {
+  /* ---- Primitives: type families ---- */
+  --font-sans: var(--font-schibsted), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* ---- Primitives: type scale (1.25 ratio, 16px base) ---- */
+  --text-xs: 0.75rem;     /* 12 — mono labels */
+  --text-sm: 0.875rem;    /* 14 */
+  --text-base: 1rem;      /* 16 */
+  --text-md: 1.125rem;    /* 18 */
+  --text-lg: 1.375rem;    /* 22 */
+  --text-xl: 1.75rem;     /* 28 */
+  --text-2xl: 2.25rem;    /* 36 */
+  --text-3xl: 3rem;       /* 48 */
+  --text-4xl: 4.25rem;    /* 68 — hero */
+
+  --leading-tight: 1.1;
+  --leading-snug: 1.3;
+  --leading-normal: 1.6;
+
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.08em;   /* mono labels, uppercase */
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-bold: 700;
+
+  /* ---- Primitives: spacing (4px base) ---- */
+  --space-1: 0.25rem;   /*  4 */
+  --space-2: 0.5rem;    /*  8 */
+  --space-3: 0.75rem;   /* 12 */
+  --space-4: 1rem;      /* 16 */
+  --space-5: 1.5rem;    /* 24 */
+  --space-6: 2rem;      /* 32 */
+  --space-7: 3rem;      /* 48 */
+  --space-8: 4rem;      /* 64 */
+  --space-9: 6rem;      /* 96 */
+  --space-10: 8rem;     /* 128 */
+
+  /* ---- Primitives: radii ---- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+  --radius-full: 999px;
+
+  /* ---- Primitives: motion ---- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 150ms;
+  --duration-base: 300ms;
+  --duration-slow: 700ms;
+
+  /* ---- Layout ---- */
+  --container-max: 1080px;
+  --container-pad: clamp(1.25rem, 5vw, 3rem);
+
+  /* ---- Accent hue (tweakable) ---- */
+  --accent-hue: 245;
+  --accent-chroma: 0.085;
+}
+
+/* ============================================================
+   Semantic color tokens — LIGHT
+   ============================================================ */
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+
+  --color-bg: oklch(0.975 0.004 var(--accent-hue));
+  --color-bg-subtle: oklch(0.945 0.006 var(--accent-hue));
+  --color-surface: oklch(0.995 0.002 var(--accent-hue));
+  --color-text: oklch(0.23 0.012 var(--accent-hue));
+  --color-text-secondary: oklch(0.45 0.014 var(--accent-hue));
+  --color-text-tertiary: oklch(0.60 0.012 var(--accent-hue));
+  --color-border: oklch(0.88 0.008 var(--accent-hue));
+  --color-border-strong: oklch(0.78 0.012 var(--accent-hue));
+
+  --color-accent: oklch(0.50 var(--accent-chroma) var(--accent-hue));
+  --color-accent-strong: oklch(0.42 var(--accent-chroma) var(--accent-hue));
+  --color-accent-subtle: oklch(0.93 0.025 var(--accent-hue));
+  --color-on-accent: oklch(0.985 0.002 var(--accent-hue));
+
+  --shadow-sm: 0 1px 2px oklch(0.2 0.01 var(--accent-hue) / 0.06);
+  --shadow-md: 0 2px 8px oklch(0.2 0.01 var(--accent-hue) / 0.07), 0 8px 24px oklch(0.2 0.01 var(--accent-hue) / 0.06);
+  --shadow-lg: 0 4px 12px oklch(0.2 0.01 var(--accent-hue) / 0.08), 0 16px 48px oklch(0.2 0.01 var(--accent-hue) / 0.10);
+}
+
+/* ============================================================
+   Semantic color tokens — DARK
+   ============================================================ */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-bg: oklch(0.20 0.012 var(--accent-hue));
+  --color-bg-subtle: oklch(0.235 0.014 var(--accent-hue));
+  --color-surface: oklch(0.255 0.015 var(--accent-hue));
+  --color-text: oklch(0.93 0.006 var(--accent-hue));
+  --color-text-secondary: oklch(0.72 0.012 var(--accent-hue));
+  --color-text-tertiary: oklch(0.56 0.012 var(--accent-hue));
+  --color-border: oklch(0.32 0.014 var(--accent-hue));
+  --color-border-strong: oklch(0.42 0.016 var(--accent-hue));
+
+  --color-accent: oklch(0.74 var(--accent-chroma) var(--accent-hue));
+  --color-accent-strong: oklch(0.82 var(--accent-chroma) var(--accent-hue));
+  --color-accent-subtle: oklch(0.30 0.035 var(--accent-hue));
+  --color-on-accent: oklch(0.18 0.02 var(--accent-hue));
+
+  --shadow-sm: 0 1px 2px oklch(0.05 0.01 var(--accent-hue) / 0.4);
+  --shadow-md: 0 2px 8px oklch(0.05 0.01 var(--accent-hue) / 0.45), 0 8px 24px oklch(0.05 0.01 var(--accent-hue) / 0.35);
+  --shadow-lg: 0 4px 12px oklch(0.05 0.01 var(--accent-hue) / 0.5), 0 16px 48px oklch(0.05 0.01 var(--accent-hue) / 0.45);
+}
