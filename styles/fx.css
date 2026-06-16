@@ -280,6 +280,16 @@ html.fx.ready .split .wi {
   .work-row .work-side {
     display: none;
   }
+  .work-client-mobile {
+    display: block;
+    margin-bottom: var(--space-2);
+  }
+}
+
+@media (min-width: 721px) {
+  .work-client-mobile {
+    display: none;
+  }
 }
 
 /* ---------- marquee ---------- */

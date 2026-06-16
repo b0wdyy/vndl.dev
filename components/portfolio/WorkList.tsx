@@ -14,6 +14,9 @@ export function WorkList() {
               <span className="idx">{p.index}</span>
               <div className="work-main">
                 <h3>{p.title}</h3>
+                <p className="work-client-mobile mono-label accent">
+                  {p.client} · {p.period}
+                </p>
                 <p className="desc">{p.description}</p>
               </div>
               <div className="work-side">
