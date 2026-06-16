@@ -1,9 +1,9 @@
 ---
-title: "Offline-first with SQLite, without the sync horror stories"
-date: "2025-06-22"
-tag: "Architecture"
-description: "Designing for unreliable networks: local SQLite as the source of truth, deliberate sync boundaries, and conflicts you can reason about."
-cover: ""
+title: 'Offline-first with SQLite, without the sync horror stories'
+date: '2025-06-22'
+tag: 'Architecture'
+description: 'Designing for unreliable networks: local SQLite as the source of truth, deliberate sync boundaries, and conflicts you can reason about.'
+cover: ''
 ---
 
 The NURS-E mobile app for Wit-Gele Kruis needed to work in hospital basements, care home corridors, and anywhere a community nurse with unreliable 4G goes. "Work offline" sounds simple. It almost never is.
@@ -20,7 +20,7 @@ The right model: **local SQLite is the source of truth**. The server is a sync t
 
 ## Defining sync boundaries
 
-The first thing we did was inventory *what actually needs to sync*, and when. Not everything does.
+The first thing we did was inventory _what actually needs to sync_, and when. Not everything does.
 
 Patient care records: must sync, eventually consistent is acceptable (nurse A and nurse B seeing each other's notes within a few minutes is fine).
 
@@ -57,7 +57,7 @@ We landed on a pragmatic rule: for most data types, last-write-wins by server ti
 
 On sync, the backend compares `device_id` + `created_at` + `patient_id` + medication type to detect overlapping administrations. If it finds one, it marks both records as `conflict: true` and returns them to the app. The nurse sees a banner: "Two records were created for the same patient and medication within 30 minutes. Please review."
 
-This isn't automatic conflict resolution. It's deliberate conflict *surfacing*. For healthcare, that's the right tradeoff. We'd rather show a nurse two records and ask them to confirm than silently discard one.
+This isn't automatic conflict resolution. It's deliberate conflict _surfacing_. For healthcare, that's the right tradeoff. We'd rather show a nurse two records and ask them to confirm than silently discard one.
 
 ## What made sync reliable
 

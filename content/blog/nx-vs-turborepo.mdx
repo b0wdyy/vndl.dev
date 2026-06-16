@@ -1,9 +1,9 @@
 ---
-title: "Nx or Turborepo? Notes after shipping both"
-date: "2026-02-10"
-tag: "Monorepos"
-description: "Two production monorepos, two very different toolchains. Where each one shines, where each one fights you, and how to choose without regret."
-cover: ""
+title: 'Nx or Turborepo? Notes after shipping both'
+date: '2026-02-10'
+tag: 'Monorepos'
+description: 'Two production monorepos, two very different toolchains. Where each one shines, where each one fights you, and how to choose without regret.'
+cover: ''
 ---
 
 I've shipped two monorepo codebases in the past year that went into production. One runs on Nx, the other on Turborepo. They weren't experiments — both are actively maintained client projects, one a healthcare platform with shared Angular libraries, the other a greenfield order management system on TanStack Start and Fastify.
@@ -16,13 +16,13 @@ Turborepo's pitch is simple: fast task pipelines through caching and parallelism
 
 The mental model is low-friction. You define a `turbo.json` with task dependencies, and it figures out what can run in parallel and what's cached. The remote cache story (Vercel Remote Cache) is genuinely great once you're set up — CI drops from 8 minutes to under 90 seconds on a warm cache.
 
-Where it doesn't go: Turborepo is a *build orchestrator*, not an architecture tool. It won't generate code, enforce module boundaries, or tell you that your `ui` library is importing directly from `api`. That's fine — it knows what it is. But if you need those things, you're on your own.
+Where it doesn't go: Turborepo is a _build orchestrator_, not an architecture tool. It won't generate code, enforce module boundaries, or tell you that your `ui` library is importing directly from `api`. That's fine — it knows what it is. But if you need those things, you're on your own.
 
 The order entry platform at Billiet runs on Turborepo with React 19, TanStack Start, and Fastify. It works well. The project is structured enough that we don't need boundary enforcement, and the caching is the main reason we chose it.
 
 ## What Nx is actually good at
 
-Nx is more opinionated, and that's by design. The Nx team believes that a monorepo tool should understand *what your code does*, not just *what commands to run*.
+Nx is more opinionated, and that's by design. The Nx team believes that a monorepo tool should understand _what your code does_, not just _what commands to run_.
 
 The result: Nx has generators (for creating new libraries, components, API endpoints), enforced module boundaries (via `@nx/enforce-module-boundaries` ESLint rule), affected-analysis that understands import graphs, and first-class Angular support that's kept pace with the framework.
 
@@ -32,15 +32,15 @@ The cost: Nx is more to learn and more to configure. The `project.json` per-pack
 
 ## The honest comparison
 
-| | Turborepo | Nx |
-|---|---|---|
-| Setup time | Low | Medium |
-| Caching | Excellent | Good |
-| Code generation | None built-in | Generators + plugins |
-| Module boundaries | No | Yes (ESLint rule) |
-| Angular support | Generic | First-class |
-| Remote cache | Vercel Remote Cache | Nx Cloud |
-| Learning curve | Gentle | Steeper |
+|                   | Turborepo           | Nx                   |
+| ----------------- | ------------------- | -------------------- |
+| Setup time        | Low                 | Medium               |
+| Caching           | Excellent           | Good                 |
+| Code generation   | None built-in       | Generators + plugins |
+| Module boundaries | No                  | Yes (ESLint rule)    |
+| Angular support   | Generic             | First-class          |
+| Remote cache      | Vercel Remote Cache | Nx Cloud             |
+| Learning curve    | Gentle              | Steeper              |
 
 ## How to choose
 

@@ -1,20 +1,22 @@
 import type { Metadata } from 'next'
-import { Schibsted_Grotesk, JetBrains_Mono } from 'next/font/google'
-import { Header } from '@/components/layout/Header'
-import { Footer } from '@/components/layout/Footer'
-import { Loader } from '@/components/fx/Loader'
+import { JetBrains_Mono, Schibsted_Grotesk } from 'next/font/google'
+
 import { Cursor } from '@/components/fx/Cursor'
-import { Veil } from '@/components/fx/Veil'
-import { SmoothScroll } from '@/components/fx/SmoothScroll'
+import { Loader } from '@/components/fx/Loader'
 import { Reveal } from '@/components/fx/Reveal'
+import { SmoothScroll } from '@/components/fx/SmoothScroll'
+import { Veil } from '@/components/fx/Veil'
 import { WorkPreviewClient } from '@/components/fx/WorkPreviewClient'
-import '../styles/tokens.css'
+import { Footer } from '@/components/layout/Footer'
+import { Header } from '@/components/layout/Header'
+
 import '../styles/base.css'
-import '../styles/layout.css'
+import '../styles/blog.css'
 import '../styles/fx.css'
+import '../styles/layout.css'
 import '../styles/menu.css'
 import '../styles/preview.css'
-import '../styles/blog.css'
+import '../styles/tokens.css'
 
 const schibsted = Schibsted_Grotesk({
   subsets: ['latin'],
@@ -37,14 +39,16 @@ export const metadata: Metadata = {
     default: 'Bodhi Vandael · Full-Stack Developer',
     template: '%s · Bodhi Vandael',
   },
-  description: 'Full-stack developer with 5+ years shipping web, mobile and desktop products. Based in Lommel, Belgium.',
+  description:
+    'Full-stack developer with 5+ years shipping web, mobile and desktop products. Based in Lommel, Belgium.',
   openGraph: {
     type: 'website',
     locale: 'en_GB',
     url: 'https://vndl.dev',
     siteName: 'Bodhi Vandael',
     title: 'Bodhi Vandael · Full-Stack Developer',
-    description: 'Full-stack developer with 5+ years shipping web, mobile and desktop products. Based in Lommel, Belgium.',
+    description:
+      'Full-stack developer with 5+ years shipping web, mobile and desktop products. Based in Lommel, Belgium.',
   },
   twitter: {
     card: 'summary_large_image',
@@ -57,11 +61,7 @@ const themeScript = `(function(){try{var s=localStorage.getItem('bv-theme');if(s
 // Inline script to add fx class when motion is allowed
 const fxScript = `(function(){try{if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('fx');}}catch(e){}})();`
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -69,7 +69,9 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: fxScript }} />
       </head>
       <body className={`${schibsted.variable} ${jetbrains.variable}`}>
-        <a href="#top" className="skip-link">Skip to content</a>
+        <a href="#top" className="skip-link">
+          Skip to content
+        </a>
         <Loader />
         <Cursor />
         <Veil />

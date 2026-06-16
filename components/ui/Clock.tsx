@@ -23,7 +23,9 @@ export function Clock() {
 
   return (
     <span className="header-clock mono-label" suppressHydrationWarning>
-      <span className="clock-time" suppressHydrationWarning>{time}</span>
+      <span className="clock-time" suppressHydrationWarning>
+        {time}
+      </span>
       &nbsp;· Lommel, BE
     </span>
   )

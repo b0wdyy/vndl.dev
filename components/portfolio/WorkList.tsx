@@ -31,9 +31,20 @@ export function WorkList() {
         <div className="work-preview-inner">
           {projects.map((p) => (
             <div key={p.pkey} className="wp-media" data-pkey={p.pkey}>
-              <div style={{ width: '100%', height: '100%', background: 'var(--color-bg-subtle)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  background: 'var(--color-bg-subtle)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
                 {/* TODO: replace with real project screenshot */}
-                <span className="mono-label" style={{ opacity: 0.4 }}>{p.title}</span>
+                <span className="mono-label" style={{ opacity: 0.4 }}>
+                  {p.title}
+                </span>
               </div>
               <span className="wp-tag">{p.title}</span>
             </div>

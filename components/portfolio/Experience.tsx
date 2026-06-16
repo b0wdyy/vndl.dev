@@ -1,5 +1,5 @@
-import { experience } from '@/lib/experience'
 import { Chip } from '@/components/ui/Chip'
+import { experience } from '@/lib/experience'
 
 export function Experience() {
   return (
@@ -19,10 +19,14 @@ export function Experience() {
                 <h3>{e.role}</h3>
                 <p className="org">{e.org}</p>
                 <ul>
-                  {e.bullets.map((b, j) => <li key={j}>{b}</li>)}
+                  {e.bullets.map((b, j) => (
+                    <li key={j}>{b}</li>
+                  ))}
                 </ul>
                 <div className="chip-row">
-                  {e.chips.map((c) => <Chip key={c}>{c}</Chip>)}
+                  {e.chips.map((c) => (
+                    <Chip key={c}>{c}</Chip>
+                  ))}
                 </div>
               </div>
             </div>

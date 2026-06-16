@@ -18,7 +18,9 @@
   justify-content: center;
   transition: transform 0.7s cubic-bezier(0.76, 0, 0.24, 1);
 }
-.loader.done { transform: translateY(-100%); }
+.loader.done {
+  transform: translateY(-100%);
+}
 
 .loader-name {
   display: flex;
@@ -35,7 +37,11 @@
   animation-delay: calc(var(--i) * 35ms + 120ms);
   min-width: 0.28em; /* keeps the space character */
 }
-@keyframes ln-up { to { transform: translateY(0); } }
+@keyframes ln-up {
+  to {
+    transform: translateY(0);
+  }
+}
 
 .loader-count {
   position: absolute;
@@ -59,7 +65,9 @@
   transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
   pointer-events: none;
 }
-.veil.on { transform: translateY(0); }
+.veil.on {
+  transform: translateY(0);
+}
 
 /* ---------- entrance choreography (overrides site.css .rise) ---------- */
 
@@ -67,10 +75,15 @@ html.fx .rise {
   animation: none;
   opacity: 0;
   transform: translateY(26px);
-  transition: opacity 0.8s ease, transform 0.9s var(--ease-out);
+  transition:
+    opacity 0.8s ease,
+    transform 0.9s var(--ease-out);
   transition-delay: calc(var(--i, 0) * 95ms + 150ms);
 }
-html.fx.ready .rise { opacity: 1; transform: none; }
+html.fx.ready .rise {
+  opacity: 1;
+  transform: none;
+}
 
 /* split headline: word masks */
 html.fx .split .w {
@@ -86,7 +99,9 @@ html.fx .split .wi {
   transition: transform 0.95s var(--ease-out);
   transition-delay: calc(var(--i, 0) * 60ms + 200ms);
 }
-html.fx.ready .split .wi { transform: translateY(0); }
+html.fx.ready .split .wi {
+  transform: translateY(0);
+}
 
 /* ---------- custom cursor ---------- */
 
@@ -101,19 +116,31 @@ html.fx.ready .split .wi { transform: translateY(0); }
   pointer-events: none;
   z-index: 300;
   transform: translate(-50%, -50%);
-  transition: width 0.3s var(--ease-out), height 0.3s var(--ease-out),
-              background-color 0.3s var(--ease-out), opacity 0.3s ease,
-              border-color 0.3s ease;
+  transition:
+    width 0.3s var(--ease-out),
+    height 0.3s var(--ease-out),
+    background-color 0.3s var(--ease-out),
+    opacity 0.3s ease,
+    border-color 0.3s ease;
   opacity: 0;
 }
-.cursor.alive { opacity: 1; }
+.cursor.alive {
+  opacity: 1;
+}
 .cursor.hot {
   width: 56px;
   height: 56px;
   background: color-mix(in oklab, var(--color-accent) 14%, transparent);
 }
-.cursor.down { width: 18px; height: 18px; }
-@media (hover: none), (pointer: coarse) { .cursor { display: none; } }
+.cursor.down {
+  width: 18px;
+  height: 18px;
+}
+@media (hover: none), (pointer: coarse) {
+  .cursor {
+    display: none;
+  }
+}
 
 /* ---------- rolling text links (nav) ---------- */
 
@@ -134,7 +161,9 @@ html.fx.ready .split .wi { transform: translateY(0); }
   top: 100%;
   color: var(--color-accent);
 }
-.roll:hover .roll-inner { transform: translateY(-100%); }
+.roll:hover .roll-inner {
+  transform: translateY(-100%);
+}
 
 /* ---------- magnetic elements ---------- */
 
@@ -146,7 +175,9 @@ html.fx.ready .split .wi { transform: translateY(0); }
 
 /* ---------- work rows ---------- */
 
-.work-list { border-top: 1px solid var(--color-border); }
+.work-list {
+  border-top: 1px solid var(--color-border);
+}
 
 .work-row {
   position: relative;
@@ -161,7 +192,7 @@ html.fx.ready .split .wi { transform: translateY(0); }
   overflow: hidden;
 }
 .work-row::before {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   background: var(--color-accent);
@@ -169,8 +200,13 @@ html.fx.ready .split .wi { transform: translateY(0); }
   transform-origin: bottom;
   transition: transform 0.45s cubic-bezier(0.76, 0, 0.24, 1);
 }
-.work-row:hover::before { transform: scaleY(1); }
-.work-row > * { position: relative; z-index: 1; }
+.work-row:hover::before {
+  transform: scaleY(1);
+}
+.work-row > * {
+  position: relative;
+  z-index: 1;
+}
 
 .work-row .idx {
   font-family: var(--font-mono);
@@ -178,13 +214,19 @@ html.fx.ready .split .wi { transform: translateY(0); }
   color: var(--color-text-tertiary);
   transition: color 0.3s ease;
 }
-.work-row .work-main { display: grid; gap: var(--space-1); min-width: 0; }
+.work-row .work-main {
+  display: grid;
+  gap: var(--space-1);
+  min-width: 0;
+}
 .work-row h3 {
   font-size: clamp(1.375rem, 3vw, var(--text-xl));
   font-weight: var(--weight-bold);
   letter-spacing: var(--tracking-tight);
   line-height: var(--leading-snug);
-  transition: color 0.3s ease, transform 0.45s var(--ease-out);
+  transition:
+    color 0.3s ease,
+    transform 0.45s var(--ease-out);
 }
 .work-row .desc {
   font-size: var(--text-sm);
@@ -205,10 +247,15 @@ html.fx.ready .split .wi { transform: translateY(0); }
   justify-self: end;
   transform: translate(-8px, 8px);
   opacity: 0;
-  transition: transform 0.45s var(--ease-out), opacity 0.3s ease, color 0.3s ease;
+  transition:
+    transform 0.45s var(--ease-out),
+    opacity 0.3s ease,
+    color 0.3s ease;
 }
 
-.work-row:hover h3 { transform: translateX(10px); }
+.work-row:hover h3 {
+  transform: translateX(10px);
+}
 .work-row:hover h3,
 .work-row:hover .desc,
 .work-row:hover .idx,
@@ -216,7 +263,9 @@ html.fx.ready .split .wi { transform: translateY(0); }
 .work-row:hover .work-side .mono-label.accent {
   color: var(--color-on-accent);
 }
-.work-row:hover .desc { opacity: 0.85; }
+.work-row:hover .desc {
+  opacity: 0.85;
+}
 .work-row:hover .arrow {
   transform: translate(0, 0);
   opacity: 1;
@@ -224,8 +273,13 @@ html.fx.ready .split .wi { transform: translateY(0); }
 }
 
 @media (max-width: 720px) {
-  .work-row { grid-template-columns: 1fr 32px; }
-  .work-row .idx, .work-row .work-side { display: none; }
+  .work-row {
+    grid-template-columns: 1fr 32px;
+  }
+  .work-row .idx,
+  .work-row .work-side {
+    display: none;
+  }
 }
 
 /* ---------- marquee ---------- */
@@ -239,7 +293,7 @@ html.fx.ready .split .wi { transform: translateY(0); }
   position: relative;
 }
 .contact .email-link::after {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   bottom: -4px;
@@ -256,4 +310,7 @@ html.fx.ready .split .wi { transform: translateY(0); }
 }
 
 /* hide native scrollbar jump from loader */
-html.locked, html.locked body { overflow: hidden; }
+html.locked,
+html.locked body {
+  overflow: hidden;
+}

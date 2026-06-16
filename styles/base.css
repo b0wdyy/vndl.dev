@@ -3,9 +3,15 @@
    Reset, body, typography primitives, buttons, chips
    ============================================================ */
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   font-family: var(--font-sans);
@@ -13,12 +19,16 @@ body {
   line-height: var(--leading-normal);
   color: var(--color-text);
   background: var(--color-bg);
-  transition: background-color var(--duration-base) var(--ease-out),
-              color var(--duration-base) var(--ease-out);
+  transition:
+    background-color var(--duration-base) var(--ease-out),
+    color var(--duration-base) var(--ease-out);
   -webkit-font-smoothing: antialiased;
 }
 
-::selection { background: var(--color-accent-subtle); color: var(--color-accent-strong); }
+::selection {
+  background: var(--color-accent-subtle);
+  color: var(--color-accent-strong);
+}
 
 .container {
   max-width: var(--container-max);
@@ -38,9 +48,13 @@ body {
   color: var(--color-text-tertiary);
 }
 
-.accent { color: var(--color-accent); }
+.accent {
+  color: var(--color-accent);
+}
 
-a { color: inherit; }
+a {
+  color: inherit;
+}
 
 .link {
   color: var(--color-accent);
@@ -51,7 +65,9 @@ a { color: inherit; }
   background-size: 0% 1px;
   transition: background-size var(--duration-base) var(--ease-out);
 }
-.link:hover { background-size: 100% 1px; }
+.link:hover {
+  background-size: 100% 1px;
+}
 
 .btn {
   display: inline-flex;
@@ -65,27 +81,38 @@ a { color: inherit; }
   border-radius: var(--radius-full);
   border: 1px solid transparent;
   cursor: pointer;
-  transition: transform var(--duration-fast) var(--ease-out),
-              box-shadow var(--duration-fast) var(--ease-out),
-              background-color var(--duration-fast) var(--ease-out),
-              border-color var(--duration-fast) var(--ease-out),
-              color var(--duration-fast) var(--ease-out);
+  transition:
+    transform var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
 }
-.btn:hover { transform: translateY(-1px); }
-.btn:active { transform: translateY(0); }
+.btn:hover {
+  transform: translateY(-1px);
+}
+.btn:active {
+  transform: translateY(0);
+}
 
 .btn-primary {
   background: var(--color-accent);
   color: var(--color-on-accent);
 }
-.btn-primary:hover { background: var(--color-accent-strong); box-shadow: var(--shadow-md); }
+.btn-primary:hover {
+  background: var(--color-accent-strong);
+  box-shadow: var(--shadow-md);
+}
 
 .btn-ghost {
   background: transparent;
   color: var(--color-text);
   border-color: var(--color-border-strong);
 }
-.btn-ghost:hover { border-color: var(--color-text-secondary); background: var(--color-bg-subtle); }
+.btn-ghost:hover {
+  border-color: var(--color-text-secondary);
+  background: var(--color-bg-subtle);
+}
 
 .chip {
   font-family: var(--font-mono);
@@ -96,12 +123,20 @@ a { color: inherit; }
   border-radius: var(--radius-full);
   padding: 2px 10px;
   white-space: nowrap;
-  transition: border-color var(--duration-fast) var(--ease-out),
-              color var(--duration-fast) var(--ease-out);
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
 }
-.chip:hover { border-color: var(--color-accent); color: var(--color-accent); }
+.chip:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
 
-.chip-row { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
 
 /* ---------- accessibility ---------- */
 
@@ -120,4 +155,6 @@ a { color: inherit; }
   transform: translateY(-200%);
   transition: transform 0.2s ease;
 }
-.skip-link:focus { transform: translateY(0); }
+.skip-link:focus {
+  transform: translateY(0);
+}

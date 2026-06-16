@@ -1,10 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+
 import { getAllPosts } from '@/lib/posts'
 
 export const metadata: Metadata = {
   title: 'Blog · Bodhi Vandael',
-  description: 'Occasional, practical posts on monorepos, frontend architecture and the unglamorous parts of shipping software.',
+  description:
+    'Occasional, practical posts on monorepos, frontend architecture and the unglamorous parts of shipping software.',
 }
 
 export default function BlogPage() {
@@ -21,7 +23,8 @@ export default function BlogPage() {
             Writing about code that has to last.
           </h1>
           <p className="lede rise" style={{ '--i': 2 } as React.CSSProperties}>
-            Occasional, practical posts on monorepos, frontend architecture and the unglamorous parts of shipping software.
+            Occasional, practical posts on monorepos, frontend architecture and the unglamorous
+            parts of shipping software.
           </p>
         </div>
       </section>
@@ -48,7 +51,11 @@ export default function BlogPage() {
                 <div className="work-side">
                   <span className="mono-label accent">{post.tag}</span>
                   <span className="post-row-date">
-                    {new Date(post.date).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' })} · {post.readingTime}
+                    {new Date(post.date).toLocaleDateString('en-GB', {
+                      month: 'short',
+                      year: 'numeric',
+                    })}{' '}
+                    · {post.readingTime}
                   </span>
                 </div>
                 <span className="arrow">↗</span>

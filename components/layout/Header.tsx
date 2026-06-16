@@ -1,10 +1,12 @@
 'use client'
 import { useState } from 'react'
+
 import Link from 'next/link'
+
+import { Magnetic } from '@/components/fx/Magnetic'
+import { Menu } from '@/components/layout/Menu'
 import { Clock } from '@/components/ui/Clock'
 import { ThemeToggle } from '@/components/ui/ThemeToggle'
-import { Menu } from '@/components/layout/Menu'
-import { Magnetic } from '@/components/fx/Magnetic'
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -29,7 +31,7 @@ export function Header() {
                 type="button"
                 aria-expanded={menuOpen}
                 aria-controls="menu-overlay"
-                onClick={() => setMenuOpen(o => !o)}
+                onClick={() => setMenuOpen((o) => !o)}
               >
                 <span className="menu-label">{menuOpen ? 'Close' : 'Menu'}</span>
                 <span className="menu-lines" aria-hidden="true">

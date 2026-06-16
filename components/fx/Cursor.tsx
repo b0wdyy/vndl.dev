@@ -9,14 +9,24 @@ export function Cursor() {
     if (!el) return
     if (!document.documentElement.classList.contains('fx')) return
 
-    let cx = -100, cy = -100, tx = -100, ty = -100, alive = false
+    let cx = -100,
+      cy = -100,
+      tx = -100,
+      ty = -100,
+      alive = false
     let rafId: number
 
     const HOT = 'a, button, .work-row, .chip, .project-card'
 
     const onMove = (e: PointerEvent) => {
-      tx = e.clientX; ty = e.clientY
-      if (!alive) { alive = true; cx = tx; cy = ty; el.classList.add('alive') }
+      tx = e.clientX
+      ty = e.clientY
+      if (!alive) {
+        alive = true
+        cx = tx
+        cy = ty
+        el.classList.add('alive')
+      }
     }
     const onDown = () => el.classList.add('down')
     const onUp = () => el.classList.remove('down')

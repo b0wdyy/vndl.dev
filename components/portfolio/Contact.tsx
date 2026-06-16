@@ -5,7 +5,9 @@ export function Contact() {
         <p className="mono-label reveal">Open to new projects</p>
         <h2 className="reveal">Have something worth building? Let&apos;s talk.</h2>
         <p className="reveal">
-          <a className="email-link" href="mailto:me@vndl.dev">me@vndl.dev</a>
+          <a className="email-link" href="mailto:me@vndl.dev">
+            me@vndl.dev
+          </a>
         </p>
         <div className="contact-rows reveal">
           <div>
@@ -14,7 +16,11 @@ export function Contact() {
           </div>
           <div>
             <span className="mono-label">LinkedIn</span>
-            <a href="https://linkedin.com/in/bodhi-vandael" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://linkedin.com/in/bodhi-vandael"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               linkedin.com/in/bodhi-vandael
             </a>
           </div>

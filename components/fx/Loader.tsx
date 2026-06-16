@@ -38,7 +38,11 @@ export function Loader() {
     }
 
     let seen = false
-    try { seen = sessionStorage.getItem('bv-loader-seen') === '1' } catch { /* ignore */ }
+    try {
+      seen = sessionStorage.getItem('bv-loader-seen') === '1'
+    } catch {
+      /* ignore */
+    }
 
     const loader = loaderRef.current
     if (!hasFx || seen || !loader) {
@@ -65,7 +69,11 @@ export function Loader() {
         root.classList.remove('locked')
         setTimeout(addReady, 250)
         setTimeout(() => loader!.remove(), 800)
-        try { sessionStorage.setItem('bv-loader-seen', '1') } catch { /* ignore */ }
+        try {
+          sessionStorage.setItem('bv-loader-seen', '1')
+        } catch {
+          /* ignore */
+        }
       }
     }
     requestAnimationFrame(tick)
@@ -75,16 +83,14 @@ export function Loader() {
     <div ref={loaderRef} className="loader" aria-hidden="true">
       <div className="loader-name">
         {NAME.map((char, i) => (
-          <span
-            key={i}
-            className="ln"
-            style={{ '--i': i } as React.CSSProperties}
-          >
+          <span key={i} className="ln" style={{ '--i': i } as React.CSSProperties}>
             {char}
           </span>
         ))}
       </div>
-      <span ref={countRef} className="loader-count">00</span>
+      <span ref={countRef} className="loader-count">
+        00
+      </span>
     </div>
   )
 }

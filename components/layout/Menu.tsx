@@ -1,5 +1,6 @@
 'use client'
 import { useEffect } from 'react'
+
 import Link from 'next/link'
 
 type MenuProps = {
@@ -45,11 +46,7 @@ export function Menu({ isOpen, onClose }: MenuProps) {
   }
 
   return (
-    <div
-      className="menu-overlay"
-      id="menu-overlay"
-      aria-hidden={!isOpen}
-    >
+    <div className="menu-overlay" id="menu-overlay" aria-hidden={!isOpen}>
       <div className="container menu-inner">
         <nav className="menu-nav">
           {NAV_LINKS.map((link, i) => (
@@ -74,7 +71,13 @@ export function Menu({ isOpen, onClose }: MenuProps) {
           </div>
           <div>
             <span className="mono-label">LinkedIn</span>
-            <a href="https://linkedin.com/in/bodhi-vandael" target="_blank" rel="noopener noreferrer">bodhi-vandael</a>
+            <a
+              href="https://linkedin.com/in/bodhi-vandael"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              bodhi-vandael
+            </a>
           </div>
           <div>
             <span className="mono-label">Location</span>

@@ -20,12 +20,15 @@ export function WorkPreviewClient() {
 
     let tx = window.innerWidth / 2
     let ty = window.innerHeight / 2
-    let cx = tx, cy = ty, lastX = tx
+    let cx = tx,
+      cy = ty,
+      lastX = tx
     let active = false
     let rafId: number
 
     const onMove = (e: PointerEvent) => {
-      tx = e.clientX; ty = e.clientY
+      tx = e.clientX
+      ty = e.clientY
     }
     window.addEventListener('pointermove', onMove, { passive: true })
 

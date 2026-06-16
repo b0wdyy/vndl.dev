@@ -1,9 +1,9 @@
 ---
-title: "NgRx Signals in production: a healthcare case study"
-date: "2025-11-18"
-tag: "Angular"
+title: 'NgRx Signals in production: a healthcare case study'
+date: '2025-11-18'
+tag: 'Angular'
 description: "What changed when we moved complex form workflows to NgRx Signals on a multi-platform Angular app, and the patterns we'd keep."
-cover: ""
+cover: ''
 ---
 
 The NURS-E healthcare platform needed to handle complex patient care forms — forms with conditional sections, computed values, offline state, and real-time sync requirements. We'd built the first version with traditional NgRx (actions, reducers, effects, selectors). It worked, but the boilerplate was exhausting and the cognitive overhead of tracing a single field change through the stack was real.
@@ -18,7 +18,7 @@ The most obvious change was volume of code. A typical slice in the old model: ac
 export const PatientFormStore = signalStore(
   withState<PatientFormState>(initialState),
   withComputed(({ sections, currentStep }) => ({
-    completedSections: computed(() => sections().filter(s => s.complete).length),
+    completedSections: computed(() => sections().filter((s) => s.complete).length),
     canAdvance: computed(() => sections()[currentStep()].valid),
   })),
   withMethods((store, patientService = inject(PatientService)) => ({
@@ -26,7 +26,9 @@ export const PatientFormStore = signalStore(
       patchState(store, { saving: true })
       await patientService.save(index, data)
       patchState(store, (s) => ({
-        sections: s.sections.map((sec, i) => i === index ? { ...sec, ...data, complete: true } : sec),
+        sections: s.sections.map((sec, i) =>
+          i === index ? { ...sec, ...data, complete: true } : sec
+        ),
         saving: false,
       }))
     },
@@ -58,6 +60,6 @@ Yes, for greenfield. The ergonomics of signal stores are meaningfully better for
 
 For migrating an existing NgRx codebase: be selective. The intake form migration was worth it. The global app state (authentication, permissions, navigation state) stayed on traditional NgRx where the action-log DevTools are more valuable.
 
-The framing I'd use: NgRx Signals for state that *lives near the components that own it*. Traditional NgRx for state that needs to be auditable, shareable across many components, or heavily derived through a complex selector graph.
+The framing I'd use: NgRx Signals for state that _lives near the components that own it_. Traditional NgRx for state that needs to be auditable, shareable across many components, or heavily derived through a complex selector graph.
 
 Pick the right tool for the job. They coexist fine.

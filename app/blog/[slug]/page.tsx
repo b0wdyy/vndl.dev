@@ -1,11 +1,13 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
+
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import rehypePrettyCode from 'rehype-pretty-code'
 import rehypeSlug from 'rehype-slug'
-import { getAllPosts, getPost } from '@/lib/posts'
+
 import { getMDXComponents } from '@/components/blog/mdx-components'
+import { getAllPosts, getPost } from '@/lib/posts'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -46,11 +48,19 @@ export default async function PostPage({ params }: Props) {
     <main id="top">
       <section className="blog-hero">
         <div className="container">
-          <p className="mono-label rise" style={{ '--i': 0 } as React.CSSProperties}>{meta.tag}</p>
-          <h1 className="rise" style={{ '--i': 1 } as React.CSSProperties}>{meta.title}</h1>
+          <p className="mono-label rise" style={{ '--i': 0 } as React.CSSProperties}>
+            {meta.tag}
+          </p>
+          <h1 className="rise" style={{ '--i': 1 } as React.CSSProperties}>
+            {meta.title}
+          </h1>
           <div className="blog-meta rise" style={{ '--i': 2 } as React.CSSProperties}>
             <span className="mono-label">
-              {new Date(meta.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
+              {new Date(meta.date).toLocaleDateString('en-GB', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric',
+              })}
             </span>
             <span className="mono-label">·</span>
             <span className="mono-label">{meta.readingTime} read</span>
@@ -73,7 +83,10 @@ export default async function PostPage({ params }: Props) {
         </div>
       )}
 
-      <div className="container" style={{ paddingTop: 'var(--space-8)', paddingBottom: 'var(--space-10)' }}>
+      <div
+        className="container"
+        style={{ paddingTop: 'var(--space-8)', paddingBottom: 'var(--space-10)' }}
+      >
         <article className="prose">
           <MDXRemote
             source={content}

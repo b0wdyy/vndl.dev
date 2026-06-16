@@ -6,7 +6,16 @@ export type SkillGroup = {
 export const skills: SkillGroup[] = [
   {
     group: 'Frontend',
-    chips: ['Angular', 'React', 'Next.js', 'React Native', 'TypeScript', 'Tailwind', 'RxJS', 'Storybook'],
+    chips: [
+      'Angular',
+      'React',
+      'Next.js',
+      'React Native',
+      'TypeScript',
+      'Tailwind',
+      'RxJS',
+      'Storybook',
+    ],
   },
   {
     group: 'Backend & APIs',

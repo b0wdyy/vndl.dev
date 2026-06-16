@@ -1,5 +1,6 @@
 'use client'
 import { useEffect } from 'react'
+
 import { clearVeil } from '@/components/fx/Veil'
 
 export default function Template({ children }: { children: React.ReactNode }) {
