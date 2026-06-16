@@ -2,6 +2,12 @@ import type { Metadata } from 'next'
 import { Schibsted_Grotesk, JetBrains_Mono } from 'next/font/google'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
+import { Loader } from '@/components/fx/Loader'
+import { Cursor } from '@/components/fx/Cursor'
+import { Veil } from '@/components/fx/Veil'
+import { SmoothScroll } from '@/components/fx/SmoothScroll'
+import { Reveal } from '@/components/fx/Reveal'
+import { WorkPreviewClient } from '@/components/fx/WorkPreviewClient'
 import '../styles/tokens.css'
 import '../styles/base.css'
 import '../styles/layout.css'
@@ -48,6 +54,12 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: fxScript }} />
       </head>
       <body className={`${schibsted.variable} ${jetbrains.variable}`}>
+        <Loader />
+        <Cursor />
+        <Veil />
+        <SmoothScroll />
+        <Reveal />
+        <WorkPreviewClient />
         <Header />
         {children}
         <Footer />
