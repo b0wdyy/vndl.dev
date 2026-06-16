@@ -104,6 +104,13 @@
   padding: var(--space-10) 0 var(--space-9);
 }
 
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: var(--space-8);
+  align-items: center;
+}
+
 .hero h1 {
   font-size: clamp(2.5rem, 7vw, var(--text-4xl));
   font-weight: var(--weight-bold);
@@ -127,6 +134,85 @@
   flex-wrap: wrap;
   gap: var(--space-3);
   align-items: center;
+}
+
+/* status card */
+
+.hero-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.status-card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  padding: var(--space-5);
+  width: 100%;
+  max-width: 280px;
+  display: grid;
+  gap: var(--space-5);
+  transition:
+    background-color var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out);
+}
+
+.status-available {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: oklch(0.7 0.18 145);
+  flex-shrink: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .status-dot {
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.4;
+    }
+  }
+}
+
+.status-stack {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.status-stack > div {
+  display: grid;
+  gap: 4px;
+}
+
+.status-stack dt {
+  /* mono-label styles are applied via class */
+}
+
+.status-stack dd {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+@media (max-width: 800px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+  .hero-right {
+    display: none;
+  }
 }
 
 .hero-meta {
