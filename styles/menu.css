@@ -95,14 +95,11 @@ html.menu-open .menu-lines i:nth-child(2) {
   z-index: 170;
 }
 html.menu-open .site-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
   background: transparent;
   border-color: transparent;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
+  /* position: fixed is now always set on .site-header — no toggle needed */
 }
 html.menu-open .site-header,
 html.menu-open .header-clock,
