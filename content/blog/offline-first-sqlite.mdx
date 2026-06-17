@@ -14,7 +14,7 @@ Here's what we got right, what we got wrong, and the mental model that made the 
 
 The naive approach is to treat offline as a failure mode: the network is the truth, and offline is a degraded fallback. When the device reconnects, you sync and move on.
 
-This breaks in ways that are hard to recover from. If the nurse records a medication administration while offline, and reconnects 40 minutes later, and another nurse updated that same patient record in the meantime — who's right? "Last write wins" is not a valid answer for healthcare.
+This breaks in ways that are hard to recover from. If the nurse records a medication administration while offline, and reconnects 40 minutes later, and another nurse updated that same patient record in the meantime. Who's right? "Last write wins" is not a valid answer for healthcare.
 
 The right model: **local SQLite is the source of truth**. The server is a sync target, not an authority. Every write goes to local first, tagged with a timestamp and a device ID. Sync is the process of reconciling local state with a shared server, not pulling truth from a remote.
 
@@ -24,7 +24,7 @@ The first thing we did was inventory _what actually needs to sync_, and when. No
 
 Patient care records: must sync, eventually consistent is acceptable (nurse A and nurse B seeing each other's notes within a few minutes is fine).
 
-Medication administrations: must sync, but also need conflict detection — two administrations for the same medication in the same time window need to surface to a human, not silently merge.
+Medication administrations: must sync, but also need conflict detection: two administrations for the same medication in the same time window need to surface to a human, not silently merge.
 
 Lookup tables (medication catalog, care protocols): read-only, update via versioned download, not row-level sync.
 
@@ -49,7 +49,7 @@ CREATE TABLE care_events (
 );
 ```
 
-The UUID primary key means there's no collision risk on creation — we don't need the server to tell us the ID. `synced_at` being null is the queue for "needs to sync." `server_revision` lets us detect when a record has been updated remotely since we last pulled it.
+The UUID primary key means there's no collision risk on creation, so we don't need the server to tell us the ID. `synced_at` being null is the queue for "needs to sync." `server_revision` lets us detect when a record has been updated remotely since we last pulled it.
 
 ## Conflict handling
 

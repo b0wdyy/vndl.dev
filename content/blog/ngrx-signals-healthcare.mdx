@@ -6,9 +6,9 @@ description: "What changed when we moved complex form workflows to NgRx Signals 
 cover: ''
 ---
 
-The NURS-E healthcare platform needed to handle complex patient care forms — forms with conditional sections, computed values, offline state, and real-time sync requirements. We'd built the first version with traditional NgRx (actions, reducers, effects, selectors). It worked, but the boilerplate was exhausting and the cognitive overhead of tracing a single field change through the stack was real.
+The NURS-E healthcare platform needed to handle complex patient care forms: forms with conditional sections, computed values, offline state, and real-time sync requirements. We'd built the first version with traditional NgRx (actions, reducers, effects, selectors). It worked, but the boilerplate was exhausting and the cognitive overhead of tracing a single field change through the stack was real.
 
-When NgRx Signals landed in stable (NgRx 18), we migrated the most complex workflow — a multi-step patient intake form — as a test. Here's what we learned.
+When NgRx Signals landed in stable (NgRx 18), we migrated the most complex workflow, a multi-step patient intake form, as a test. Here's what we learned.
 
 ## What changed immediately
 
@@ -40,7 +40,7 @@ Compare that to the old model where `saveSection` alone meant an action, an effe
 
 ## The patterns that worked
 
-**Computed signals for derived UI state.** This is where signals shine hardest. Conditional form sections, progress indicators, validation summaries — anything derived from multiple state properties is just a `computed()`. No selectors factory, no memoization configuration.
+**Computed signals for derived UI state.** This is where signals shine hardest. Conditional form sections, progress indicators, validation summaries: anything derived from multiple state properties is just a `computed()`. No selectors factory, no memoization configuration.
 
 **Nested stores via injection.** We have a parent form store and section-level stores. Each section gets its own `SignalStore` injected into its component. They share state through the parent store using standard Angular DI, not any special NgRx mechanism. This maps well to how component trees work.
 
@@ -48,15 +48,15 @@ Compare that to the old model where `saveSection` alone meant an action, an effe
 
 ## The patterns that caused friction
 
-**Effects still need the old model, or RxJS.** If you're firing HTTP requests based on state changes, you still need effects — the signal store doesn't replace them. We ended up with a hybrid: signal stores for state shape, traditional effects for anything async that needed retry logic or debouncing.
+**Effects still need the old model, or RxJS.** If you're firing HTTP requests based on state changes, you still need effects, as the signal store doesn't replace them. We ended up with a hybrid: signal stores for state shape, traditional effects for anything async that needed retry logic or debouncing.
 
 **DevTools integration was immature at the time.** The Redux DevTools show signal store state, but action replay and time-travel debugging don't work the same way. For a healthcare app where we sometimes need to reproduce a specific state to debug a form validation issue, this was a real loss. It's improved since but still isn't as good.
 
-**Testing required adjustment.** The old model's reducers and selectors were pure functions, easy to test in isolation. Signal store methods aren't pure — they patch state imperatively. We moved toward integration tests (spinning up a `TestBed` with the full store) over unit testing individual methods.
+**Testing required adjustment.** The old model's reducers and selectors were pure functions, easy to test in isolation. Signal store methods aren't pure; they patch state imperatively. We moved toward integration tests (spinning up a `TestBed` with the full store) over unit testing individual methods.
 
 ## Would we do it again?
 
-Yes, for greenfield. The ergonomics of signal stores are meaningfully better for form-heavy, component-local state. The reduced boilerplate isn't just about typing less — it reduces the surface area for mistakes.
+Yes, for greenfield. The ergonomics of signal stores are meaningfully better for form-heavy, component-local state. The reduced boilerplate isn't just about typing less; it reduces the surface area for mistakes.
 
 For migrating an existing NgRx codebase: be selective. The intake form migration was worth it. The global app state (authentication, permissions, navigation state) stayed on traditional NgRx where the action-log DevTools are more valuable.
 
