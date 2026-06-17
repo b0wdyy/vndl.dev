@@ -14,7 +14,6 @@ const NAV_LINKS = [
   { index: '03', label: 'Skills', href: '/#skills' },
   { index: '04', label: 'Blog', href: '/blog' },
   { index: '05', label: 'Contact', href: '/#contact' },
-  { index: '06', label: 'Design System', href: '/design-system' },
 ]
 
 export function Menu({ isOpen, onClose }: MenuProps) {

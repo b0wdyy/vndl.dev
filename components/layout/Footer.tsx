@@ -28,7 +28,6 @@ export function Footer() {
           >
             LinkedIn
           </a>
-          <Link href="/design-system">Design system</Link>
         </div>
       </div>
     </footer>
