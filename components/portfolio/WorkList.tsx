@@ -23,7 +23,6 @@ function WorkRow({ p }: { p: (typeof projects)[number] }) {
     return (
       <a
         className="work-row"
-        data-pkey={p.pkey}
         href={p.href}
         target="_blank"
         rel="noopener noreferrer"
@@ -34,11 +33,7 @@ function WorkRow({ p }: { p: (typeof projects)[number] }) {
     )
   }
 
-  return (
-    <article className="work-row" data-pkey={p.pkey}>
-      {inner}
-    </article>
-  )
+  return <article className="work-row">{inner}</article>
 }
 
 export function WorkList() {
@@ -49,38 +44,12 @@ export function WorkList() {
           <h2>Selected work</h2>
           <span className="count">01–04</span>
         </div>
-        <div className="work-list reveal" data-preview="">
+        <div className="work-list reveal">
           {projects.map((p) => (
             <WorkRow key={p.pkey} p={p} />
           ))}
         </div>
       </div>
-
-      {/* Cursor-trailing preview — positioned fixed, driven by WorkPreview client component */}
-      <figure className="work-preview" aria-hidden="true">
-        <div className="work-preview-inner">
-          {projects.map((p) => (
-            <div key={p.pkey} className="wp-media" data-pkey={p.pkey}>
-              <div
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  background: 'var(--color-bg-subtle)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                {/* TODO: replace with real project screenshot */}
-                <span className="mono-label" style={{ opacity: 0.4 }}>
-                  {p.title}
-                </span>
-              </div>
-              <span className="wp-tag">{p.title}</span>
-            </div>
-          ))}
-        </div>
-      </figure>
     </section>
   )
 }

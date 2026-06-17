@@ -1,4 +1,3 @@
-import { WorkPreviewClient } from '@/components/fx/WorkPreviewClient'
 import { Contact } from '@/components/portfolio/Contact'
 import { Experience } from '@/components/portfolio/Experience'
 import { Hero } from '@/components/portfolio/Hero'
@@ -9,7 +8,6 @@ import { WorkList } from '@/components/portfolio/WorkList'
 export default function PortfolioPage() {
   return (
     <main id="top">
-      <WorkPreviewClient />
       <Hero />
       <WorkList />
       <Experience />

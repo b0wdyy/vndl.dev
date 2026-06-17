@@ -14,7 +14,6 @@ import '../styles/blog.css'
 import '../styles/fx.css'
 import '../styles/layout.css'
 import '../styles/menu.css'
-import '../styles/preview.css'
 import '../styles/tokens.css'
 
 const bricolage = Bricolage_Grotesque({
