@@ -38,11 +38,11 @@ function WorkRow({ p }: { p: (typeof projects)[number] }) {
 
 export function WorkList() {
   return (
-    <section className="section" id="work">
+    <section className="section py-9" id="work">
       <div className="container">
-        <div className="section-head reveal">
-          <h2>Selected work</h2>
-          <span className="count">01–04</span>
+        <div className="mb-7 flex items-baseline justify-between gap-4 reveal">
+          <h2 className="text-2xl font-bold leading-tight tracking-tight">Selected work</h2>
+          <span className="font-mono text-sm text-text-tertiary">01–04</span>
         </div>
         <div className="work-list reveal">
           {projects.map((p) => (
