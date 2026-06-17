@@ -61,12 +61,16 @@ const fxScript = `(function(){try{if(!window.matchMedia('(prefers-reduced-motion
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${bricolage.variable} ${ibmPlexMono.variable}`}
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script dangerouslySetInnerHTML={{ __html: fxScript }} />
       </head>
-      <body className={`${bricolage.variable} ${ibmPlexMono.variable}`}>
+      <body>
         <a href="#top" className="skip-link">
           Skip to content
         </a>
