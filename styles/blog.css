@@ -1,4 +1,17 @@
 /* Blog post detail styles */
+.blog-back {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  margin-bottom: var(--space-5);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+.blog-back:hover {
+  color: var(--color-accent);
+}
 .blog-hero {
   padding: var(--space-8) 0 var(--space-5);
 }

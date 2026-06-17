@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 import { MDXRemote } from 'next-mdx-remote/rsc'
@@ -48,13 +49,16 @@ export default async function PostPage({ params }: Props) {
     <main id="top">
       <section className="blog-hero">
         <div className="container">
-          <p className="mono-label rise" style={{ '--i': 0 } as React.CSSProperties}>
+          <Link href="/blog" className="blog-back rise" style={{ '--i': 0 } as React.CSSProperties}>
+            ← Blog
+          </Link>
+          <p className="mono-label rise" style={{ '--i': 1 } as React.CSSProperties}>
             {meta.tag}
           </p>
-          <h1 className="rise" style={{ '--i': 1 } as React.CSSProperties}>
+          <h1 className="rise" style={{ '--i': 2 } as React.CSSProperties}>
             {meta.title}
           </h1>
-          <div className="blog-meta rise" style={{ '--i': 2 } as React.CSSProperties}>
+          <div className="blog-meta rise" style={{ '--i': 3 } as React.CSSProperties}>
             <span className="mono-label">
               {new Date(meta.date).toLocaleDateString('en-GB', {
                 day: 'numeric',
