@@ -130,10 +130,18 @@ html.menu-open body {
 }
 
 .menu-overlay {
+  --mx: -400px;
+  --my: -400px;
   position: fixed;
   inset: 0;
   z-index: 150;
-  background: var(--color-text);
+  background:
+    radial-gradient(
+      600px circle at var(--mx) var(--my),
+      color-mix(in oklab, var(--color-accent) 16%, transparent),
+      transparent 70%
+    ),
+    var(--color-text);
   color: var(--color-bg);
   transform: translateY(-100%);
   visibility: hidden;
@@ -141,6 +149,7 @@ html.menu-open body {
     transform 0.7s cubic-bezier(0.76, 0, 0.24, 1),
     visibility 0s linear 0.7s;
   display: flex;
+  overflow: hidden;
 }
 html.menu-open .menu-overlay {
   transform: translateY(0);
@@ -155,21 +164,75 @@ html.menu-open .menu-overlay {
   width: 100%;
   padding-top: 110px;
   padding-bottom: var(--space-6);
+  position: relative;
+  z-index: 1;
+}
+
+.menu-bg-num {
+  position: absolute;
+  bottom: -0.12em;
+  right: -0.04em;
+  font-size: clamp(14rem, 36vw, 26rem);
+  font-weight: 900;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in oklab, var(--color-bg) 7%, transparent);
+  pointer-events: none;
+  user-select: none;
+  opacity: 0;
+  transform: translateY(6%);
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s var(--ease-out);
+  z-index: 0;
+}
+.menu-bg-num.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .menu-nav {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 .menu-link {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: var(--space-4);
   text-decoration: none;
   color: inherit;
   padding: 0.06em 0;
+  width: 100%;
+}
+
+.menu-blurb {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: color-mix(in oklab, var(--color-bg) 40%, transparent);
+  opacity: 0;
+  transform: translateX(-10px);
+  transition:
+    opacity 0.25s ease,
+    transform 0.3s var(--ease-out);
+  white-space: nowrap;
+  display: none;
+}
+@media (min-width: 640px) {
+  .menu-blurb {
+    display: block;
+  }
+}
+.menu-link:hover .menu-blurb {
+  opacity: 1;
+  transform: none;
 }
 .menu-num {
   font-family: var(--font-mono);
